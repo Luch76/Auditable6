@@ -1,0 +1,97 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+>
+
+    <changeSet author="DarthLuch@gmail.com" id="2024-06-22-AuditLogCreate-105">
+        <createTable tableName="AUDIT_LOG">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="P_AUDIT_LOG"/>
+            </column>
+            <column name="PERSISTED_OBJECT_ID" type="VARCHAR(500)" />
+            <column name="PROPERTY_NAME" type="VARCHAR(500)" />
+            <column name="DATE_CREATED" type="datetime" />
+            <column name="LAST_UPDATED" type="datetime" />
+            <column name="EVENT_NAME" type="VARCHAR(500)" />
+            <column name="ACTOR" type="VARCHAR(500)" />
+            <column name="NEW_VALUE" type="VARCHAR(4000)" />
+            <column name="CLASS_NAME" type="VARCHAR(4000)" />
+            <column name="OLD_VALUE" type="VARCHAR(4000)" />
+            <column name="PERSISTED_OBJECT_VERSION" type="BIGINT" />
+            <column name="URI" type="VARCHAR(1000)" />
+        </createTable>
+    </changeSet>
+    
+    <changeSet author="DarthLuch@gmail.com" id="2024-06-22-SpringSecurity-120">
+        <createTable tableName="SPRING_ROLE">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="P_SPRING_ROLE"/>
+            </column>
+            <column name="VERSION" type="int" />
+            <column name="CREATED_BY_ID" type="int" />
+            <column name="DATE_CREATED" type="datetime" />
+            <column name="LAST_UPDATED_BY_ID" type="bigint" />
+            <column name="LAST_UPDATED" type="datetime" />
+            <column name="AUTHORITY" type="VARCHAR(100)" />
+        </createTable>
+        <createTable tableName="SPRING_USER">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="P_SPRING_USER"/>
+            </column>
+            <column name="VERSION" type="int" />
+            <column name="CREATED_BY_ID" type="bigint" />
+            <column name="DATE_CREATED" type="datetime" />
+            <column name="LAST_UPDATED_BY_ID" type="bigint" />
+            <column name="LAST_UPDATED" type="datetime" />
+            <column name="PASSWORD_EXPIRED" type="tinyint" />
+            <column name="USERNAME" type="VARCHAR(1000)" />
+            <column name="ACCOUNT_LOCKED" type="tinyint" />
+            <column name="PASSWORD" type="VARCHAR(1000)" />
+            <column name="ACCOUNT_EXPIRED" type="tinyint" />
+            <column name="ENABLED" type="tinyint" />
+        </createTable>
+        <createTable tableName="SPRING_USER_SPRING_ROLE">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="P_SPRING_USER_SPRING_ROLE"/>
+            </column>
+            <column name="VERSION" type="int" />
+            <column name="CREATED_BY_ID" type="bigint" />
+            <column name="DATE_CREATED" type="datetime" />
+            <column name="LAST_UPDATED_BY_ID" type="bigint" />
+            <column name="LAST_UPDATED" type="datetime" />
+            <column name="SPRING_USER_ID" type="bigint" />
+            <column name="SPRING_ROLE_ID" type="bigint" />
+        </createTable>
+        <addForeignKeyConstraint
+                baseColumnNames="SPRING_USER_ID" baseTableName="SPRING_USER_SPRING_ROLE"
+                constraintName="FK_SPRING_USER"
+                referencedColumnNames="ID" referencedTableName="SPRING_USER"
+        />
+        <addForeignKeyConstraint
+                baseColumnNames="SPRING_ROLE_ID" baseTableName="SPRING_USER_SPRING_ROLE"
+                constraintName="FK_SPRING_ROLE"
+                referencedColumnNames="ID" referencedTableName="SPRING_ROLE"
+        />
+        <addUniqueConstraint
+                columnNames="SPRING_USER_ID, SPRING_ROLE_ID"
+                constraintName="U_SPRING_USER_SPRING_ROLE" tableName="SPRING_USER_SPRING_ROLE"
+        />
+    </changeSet>
+
+    <changeSet author="DarthLuch@gmail.com" id="2024-06-23-Bookstore-100">
+        <createTable tableName="BOOK">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="P_BOOK"/>
+            </column>
+            <column name="VERSION" type="int" />
+            <column name="CREATED_BY_ID" type="int" />
+            <column name="DATE_CREATED" type="datetime" />
+            <column name="LAST_UPDATED_BY_ID" type="bigint" />
+            <column name="LAST_UPDATED" type="datetime" />
+            <column name="TITLE" type="VARCHAR(1000)" />
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
