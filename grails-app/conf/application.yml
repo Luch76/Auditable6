@@ -62,3 +62,6 @@ grails:
       codec: html
   controllers:
     defaultScope: singleton
+  plugin:  # Luch
+    auditLog: # Added by the Audit-Logging plugin
+      auditDomainClassName: 'org.myaudit.example.AuditTrail'
