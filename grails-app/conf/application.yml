@@ -10,7 +10,7 @@ dataSource:
   password: ''
   pooled: true
   jmxExport: true
-  dbCreate: update
+  dbCreate: 'none' #'update'
 hibernate:
   cache:
     queries: false
@@ -65,3 +65,6 @@ grails:
   plugin:  # Luch
     auditLog: # Added by the Audit-Logging plugin
       auditDomainClassName: 'org.myaudit.example.AuditTrail'
+    databasemigration:
+      updateOnStart: true
+      updateOnStartFileName: changelog.xml

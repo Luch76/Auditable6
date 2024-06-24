@@ -27,6 +27,15 @@ configurations {
     }
 }
 
+// Luch
+sourceSets {
+    main {
+        resources {
+            srcDir 'grails-app/migrations'
+        }
+    }
+}
+
 dependencies {
     implementation("org.grails:grails-core")
     implementation("org.grails:grails-logging")
@@ -66,7 +75,12 @@ dependencies {
     testImplementation("io.micronaut:micronaut-http-client")
 
     // Luch
+    // https://mvnrepository.com/artifact/org.grails/grails-shell
+    implementation group: 'org.grails', name: 'grails-shell', version: '6.1.2'
     implementation('org.grails.plugins:audit-logging:4.0.3')
+    implementation 'org.liquibase:liquibase-core:4.19.0'
+    implementation 'org.grails.plugins:database-migration:4.2.1'
+
 }
 
 application {
